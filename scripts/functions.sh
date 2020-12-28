@@ -90,7 +90,7 @@ count_sys_updates() {
             logpath="/tmp/system-updates.log"
     fi
     OUT="$(LC_ALL=C /usr/bin/apt-get -q -y --ignore-hold --allow-change-held-packages --allow-unauthenticated -s dist-upgrade | grep -c "^Inst" )"
-    log_msg "${warn}${OUT} System Updates available!${default}" "${logpath}"
+    log_msg "${OUT} System Updates available!" "${logpath}"
     echo "${OUT}"
 }
 
