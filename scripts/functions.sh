@@ -74,9 +74,6 @@ last_apt_update() {
     echo "${OUT}"
 }
 
-
-
-
 # List upgradeable packages
 # ( call count_sys_updates or
 # count_sys_updates "PATHTOLOGFILE" if other file than default)
@@ -93,8 +90,6 @@ count_sys_updates() {
     log_msg "${OUT} System Updates available!" "${logpath}"
     echo "${OUT}"
 }
-
-
 
 
 ### Git Helpers

@@ -476,13 +476,11 @@ rig_frontend() {
     gitrepo="${RIG_FRONTEND_REPO}"
     path="${RIG_FRONTEND_PATH}"
     version="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
-
     OUT="${version}"
     echo " ${OUT}"
 }
 
 ### Print output
-
 print_benchy() {
     #local vars
     local RS="${reset}"
