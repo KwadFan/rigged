@@ -477,8 +477,8 @@ rig_frontend() {
     path="${RIG_FRONTEND_PATH}"
     version="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
 
-    OUT="${frontend}-${version}"
-    echo "${OUT}"
+    OUT="${version}"
+    echo " ${OUT}"
 }
 
 ### Print output
