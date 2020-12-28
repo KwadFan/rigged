@@ -210,7 +210,7 @@ frontend_local_version(){
 
 }
 new_remote() {
-
+    echo bla
 }
 
 
