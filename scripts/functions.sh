@@ -122,9 +122,12 @@ fetch_git_latest() {
 last_fetch() {
     local path
     path="${1}"
-    if [ -d "${path}" ]
+    if [ -f "${path}/.git/FETCH_HEAD" ]
         then
             echo "$(($(date +%s)-$(stat -c %Y "${path}"/.git/FETCH_HEAD)))"
+        else
+            #force fetch_git_latest
+            echo "3700"
     fi
 }
 
