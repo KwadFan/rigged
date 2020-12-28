@@ -408,7 +408,7 @@ rig_pkgs() {
         Y | y | YES | yes)
             if [ -f "${RIGFETCH_LOG}" ]
                 then
-                    updates_avail="$(grep "System Updates" "${RIGFETCH_LOG}" | awk '{print '${reset}'$1}')"
+                    updates_avail="$(grep "System Updates" "${RIGFETCH_LOG}"${reset} | awk '{print $1}')"
                 else
                     updates_avail="$(count_sys_updates "${RIGFETCH_LOG}")"
             fi
