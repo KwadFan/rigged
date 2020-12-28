@@ -192,7 +192,7 @@ frontend_local_version(){
                     OUT="$(grep -o -E 'state:{packageVersion:.+' "${jsfile}" | cut -d'"' -f2)"
                 else
                     OUT="${fg_red}N/A${reset}"
-                    log_msg "Warning! Could not detect 'fluidd' Version" "${logpath}"
+                    log_msg "Warning! Could not detect 'mainsail' Version" "${logpath}"
             fi
         ;;
         octoprint)
@@ -203,6 +203,6 @@ frontend_local_version(){
 }
 
 
-#########################################
+##########################################
 ###### DO NOT EDIT BELOW THIS LINE! ######
 ##########################################
