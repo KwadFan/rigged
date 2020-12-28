@@ -465,8 +465,20 @@ rig_git_fetch() {
     echo "${OUT}"
 }
 
+# Show Frontend Version
 rig_frontend() {
-    echo -e " whatever"
+    local frontend
+    local gitrepo
+    local path
+    local version
+    local OUT
+    frontend="${RIG_FRONTEND}"
+    gitrepo="${RIG_FRONTEND_REPO}"
+    path="${RIG_FRONTEND_PATH}"
+    version="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
+
+    OUT="${frontend}-${version}"
+    echo "${OUT}"
 }
 
 ### Print output

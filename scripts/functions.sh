@@ -166,6 +166,54 @@ check_remote_version() {
 }
 
 
+# Read local Frontend Version
+# Mangling Mainsail Frontend Version is shameless borrowed
+# from the great th33xitus, who has made the "kiauh Suite"!
+# Thanks and credits to him (https://github.com/th33xitus/kiauh)
+# (call frontend_local_version "FRONTENDNAME" "PATHTOGITCLONEDDIR" "PATHTOLOGFILE")
+frontend_local_version(){
+    local frontend
+    local path
+    local logpath
+    local OUT
+    frontend="${1}"
+    path="${2}"
+    logpath="${3}"
+    case "${frontend}" in
+        fluidd)
+            if [ -f "${path}/.version" ]
+                then
+                    OUT="$(cat ${path}/.version)"
+                else
+                    OUT="${fg_red}N/A${reset}"
+                    log_msg "Warning! Could not detect 'fluidd' Version" "${logpath}"
+            fi
+        ;;
+        mainsail)
+            local jsfile
+            jsfile=$(find ${path}/js -name "app.*.js" 2>/dev/null)
+            if [ -f "${jsfile}" ]
+                then
+                    OUT="$(grep -o -E 'state:{packageVersion:.+' "${jsfile}" | cut -d'"' -f2)"
+                else
+                    OUT="${fg_red}N/A${reset}"
+                    log_msg "Warning! Could not detect 'fluidd' Version" "${logpath}"
+            fi
+        ;;
+        octoprint)
+        OUT="${fg_red}N/A${reset}"
+        ;;
+    esac
+    echo "${OUT}"
+
+
+
+}
+new_remote() {
+
+}
+
+
 
 
 
