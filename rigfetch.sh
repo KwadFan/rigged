@@ -486,6 +486,10 @@ rig_frontend() {
 print_benchy() {
     #local vars
     local RS="${reset}"
+    if [ -z "${RIG_FRONTEND}" ]
+        then
+            RIG_FRONTEND="frontend"
+    fi
     # Clear Screen
     tput clear
     # Print Stuff
@@ -497,7 +501,7 @@ print_benchy() {
     echo -e "${BC1}${BC2} o__3D3D___3D__/3D3D3D(O)3D/  ${RS} ${TC}${TB}pkgs\t${RS}$(rig_pkgs)"
     echo -e "${BC1}${BC2} \3DOCTOPRINT3D3DRIGGED3D3/   ${RS} ${TC}${TB}klipper\t${RS}  $(rig_git_fetch "${RIG_KLIPPER_PATH}")"
     echo -e "${BC1}${BC2}  \3DWC23D3DFLUIDDD3D3D3D/    ${RS} ${TC}${TB}moonraker${RS}  $(rig_git_fetch "${RIG_MOONRAKER_PATH}")"
-    echo -e "${BC1}${BC2}   \3D3D3D3DMAINSAIL3D3D/     ${RS} ${TC}${TB}frontend\t${RS} $(rig_frontend)\v"
+    echo -e "${BC1}${BC2}   \3D3D3D3DMAINSAIL3D3D/     ${RS} ${TC}${TB}${RIG_FRONTEND}\t${RS} $(rig_frontend)\v"
 }
 
 ### Main
