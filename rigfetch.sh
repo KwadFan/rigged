@@ -356,7 +356,7 @@ first_line() {
 
 rig_uptime() {
     local UP
-    UP="$(LC_ALL=C uptime -p | tr -d ',' | sed 's/.*up.//; s/.week./W /; s/.day./d /; s/.hour./h/; s/.minut.*/m/')"
+    UP="$(LC_ALL=C uptime -p | tr -d ',' | sed 's/.*up.//; s/.week./W /; s/.day./d /; s/.hour./h/; s/minut.*/m/')"
     echo "  ${UP}"
 }
 
