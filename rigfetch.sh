@@ -472,12 +472,12 @@ rig_git_fetch() {
 rig_frontend() {
     local gitrepo
     local path
-    local version
+    local frontend
     local OUT
     gitrepo="${RIG_FRONTEND_REPO}"
     path="${RIG_FRONTEND_PATH}"
-    version="$(frontend_local_version "${path}" "${RIGFETCH_LOG}")"
-    OUT="${version}"
+    frontend="${RIG_FRONTEND}"
+    OUT="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
     echo " ${OUT}"
 }
 
