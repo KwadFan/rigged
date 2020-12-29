@@ -69,7 +69,7 @@ log_msg() {
     logmsg="${1}"
     logpath="${2}"
     date >> "${logpath}"
-    echo -e "${logmsg}" >> "${logpath}"
+    echo -e "${logmsg}\v" >> "${logpath}"
 }
 
 ### Apt Helpers
