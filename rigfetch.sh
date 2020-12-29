@@ -335,7 +335,7 @@ arg_parse() {
                     exit 0
                     ;;
                 -v | --version)
-                    echo -e "$(check_local_version "$(locate_self)")"
+                    echo -e "rigfetch - Version: $(check_local_version "$(locate_self)")"
                     exit 0
                     ;;
                 --debug)
