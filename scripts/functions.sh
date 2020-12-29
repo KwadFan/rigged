@@ -1,7 +1,15 @@
 #!/bin/bash
+#   Function Libary for
+#
+#   rigfetch - a little and simple shell script for
+#              raspios or raspios derivates,
+#              default for fullRigg3DPI,
+#              like neofetch or pfetch.
+#   and
 #
 #   rigpkg - wrapper for apt and github updates
 #            on raspios or raspios derivates
+#            (comming soon, WIP!)
 #
 # Copyright (C) 2020 Stephan Wendel <me@stephanwe.de>
 #
@@ -127,39 +135,61 @@ last_fetch() {
 }
 
 # Check local version
-# ( call check_local_version "PATHTOGITCLONEDFOLDER" )
+# ( call check_local_version "PATHTOGITCLONEDFOLDER" "PATHTOLOGFILE")
 # Spits out local git cloned tag or latest commit
 check_local_version() {
     local path
+    local logpath
     local OUT
     path="${1}"
+    logpath="${2}"
     if [ -d "${path}" ];
         then
             cd "${path}"
             OUT="$(git describe --always --tags | sed 's/-[a-z].*//')"
-            echo "${OUT}"
+            if [ -n "${logpath}" ]
+                then
+                    log_msg "${path} Version: ${OUT}" "${logpath}"
+            fi
         else
-            fail_msg "Directory ${path} not found, check configuration!"
+            OUT="N/A"
+            if [ -n "${logpath}" ]
+                then
+                    log_msg "Warning! Directory ${path} not found, check configuration..." "${logpath}"
+            fi
     fi
+    echo "${OUT}"
 }
 
 # Check local version
-# ( call check_remote_version "PATHTOGITCLONEDFOLDER" )
+# ( call check_remote_version "GITUSERNAME/GITNAME" "PATHTOLOGFILE")
+# ex.: check_remote_version "KevinOConnor/klipper" "${RIGFETCH_LOG}"
 # Spits out latest release tag
 check_remote_version() {
-    local path
+    local gitrepo
+    local logpath
     local OUT
-    path="${1}"
-    if [ -d "${path}" ];
+    local version
+    gitrepo="${1}"
+    logpath="${2}"
+    if [ -n "${gitrepo}" ]
+        version="$(curl -s https://api.github.com/repos/"${gitrepo}"/tags | grep name | head -1 \
+        | awk -F":" '{sub(/,/, ""); gsub(/"/, ""); gsub(/ /, ""); print $2}')"
         then
-            cd "${path}"
-            OUT=$(git describe --tags "$(git rev-list --tags --max-count="1")")
-            echo "${OUT}"
+            if [ -n "${logpath}" ]
+                then
+                    log_msg "’${gitrepo}’ Version: ${version}"
+            fi
+            OUT="${version}"
         else
-            fail_msg "Directory ${path} do not exist, check path!"
+            if [ -n "${logpath}" ]
+                then
+                    log_msg "Warning! Repository ${gitrepo} doesnt exist!"
+            fi
+            OUT="N/A"
     fi
+    echo "${OUT}"
 }
-
 
 # Read local Frontend Version
 # Mangling Mainsail Frontend Version is shameless borrowed
@@ -178,25 +208,33 @@ frontend_local_version(){
         fluidd)
             if [ -f "${path}/.version" ]
                 then
-                    OUT="$(cat ${path}/.version)"
+                    OUT="$(cat "${path}"/.version)"
                 else
-                    OUT="${fg_red}N/A${reset}"
-                    log_msg "Warning! Could not detect 'fluidd' Version" "${logpath}"
+                    OUT="N/A"
+                    if [ -n "${logpath}" ]
+                        then
+                            log_msg "Warning! Could not detect 'fluidd' Version" "${logpath}"
+                    fi
             fi
         ;;
         mainsail)
+            # Thank you th33xitus
+            # You are genious !
             local jsfile
-            jsfile=$(find ${path}/js -name "app.*.js" 2>/dev/null)
+            jsfile=$(find "${path}"/js -name "app.*.js" 2>/dev/null)
             if [ -f "${jsfile}" ]
                 then
                     OUT="$(grep -o -E 'state:{packageVersion:.+' "${jsfile}" | cut -d'"' -f2)"
                 else
-                    OUT="${fg_red}N/A${reset}"
-                    log_msg "Warning! Could not detect 'mainsail' Version" "${logpath}"
+                    OUT="N/A"
+                    if [ -n "${logpath}" ]
+                        then
+                            log_msg "Warning! Could not detect 'mainsail' Version" "${logpath}"
+                    fi
             fi
         ;;
         octoprint)
-        OUT="${fg_red}N/A${reset}"
+        OUT="N/A"
         ;;
     esac
     echo "${OUT}"

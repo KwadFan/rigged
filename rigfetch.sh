@@ -297,12 +297,17 @@ arg_parse() {
                     echo -e "-e or --editconfig\tOpens rigfetch's config file"
                     echo -e "If EDITOR Variable is set it opens with your Editor of Choice"
                     echo -e "Otherwise it uses 'nano' as fallback solution.\v"
+                    echo -e "-b or --backup\tWill do a backup of the rigfetch.conf"
                     echo -e "--debug\tRIPS OUT ALL OF IT'S CUTENESS!"
                     echo -e "\tand show you his naked Pants oO ( equal to set -x )\v"
                     echo -e "-h or --help ... must I really?\v"
                     echo -e "Without options it throws a benchy :)"
                     echo -e "Now you are on your own..."
                     exit 0
+                    ;;
+                -b | --backup)
+                    ok_msg "Copying rigfetch.conf to rigfetch.conf.bak"
+                    cp --preserve=mode -f "${RIGFETCH_PATH}/config/rigfetch.conf" "${RIGFETCH_PATH}/config/rigfetch.conf.bak"
                     ;;
                 -d | --deletelog)
                     if [ -f "${RIGFETCH_LOG}" ]
@@ -340,6 +345,8 @@ arg_parse() {
             esac
     done
 }
+
+
 ### Gathering Informations
 
 first_line() {
@@ -429,53 +436,47 @@ rig_pkgs() {
     esac
 }
 
-# ( call rig_git_fetch "PATHTOGITCLONEDDIR" )
+# Fetch Versions
+# ( call rig_git_fetch "GITREPO" )
+# ex.: rig_git_fetch "${RIG_KLIPPER_REPO}"
 rig_git_fetch() {
+    local gitrepo
+    local gitpath
     local OUT
-    local path
-    local gitname
-    local warn
-    path="${1}"
-    gitname="$(awk -F"/" '{print $4}' <<< "${path}")"
-    warn="${fg_red}Warning!${reset}"    
-    # Check path
-    if [ ! -d "${path}" ]
-        then
-            log_msg "Warning: ${gitname}: $(check_local_version "${path}")" "${RIGFETCH_LOG}"
-            echo "${warn}"
-        else
-            # Check last fetch
-            if [ "$(($(last_fetch "${path}")))" -ge 3600 ] # Fetch once an hour
-                then
-                    # Check if not recently
-                    fetch_git_latest "${path}" 
-                    log_msg "Fetched '${gitname}': '${path}'" "${RIGFETCH_LOG}"
-                    # check_local_version
-            fi
-            # Output
-            case $CHECK_FOR_UPDATES in
+    local logpath
+    gitrepo="${1}"
+    logpath="${RIGFETCH_LOG}"
+    case "${gitrepo}" in
+        *KLIPPER*)
+            gitpath="${RIG_KLIPPER_PATH}"
+        ;;
+        *MOONRAKER*)
+            gitpath="${RIG_MOONRAKER_PATH}"
+        ;;
+    esac
+    case $CHECK_FOR_UPDATES in
                 Y | y | YES | yes)
-                    OUT="$(check_local_version "${path}") (${fg_red}$(check_remote_version "${path}")${reset})"
+                    OUT="$(check_local_version "${gitpath}" "${logpath}") (${fg_red}$(check_remote_version "${gitrepo}" "${logpath}")${reset})"
                     ;;
-                *)
-                    OUT="$(check_local_version "${path}")"
+                 *)
+                    OUT="$(check_local_version "${gitpath}" "${logpath}")"
                     ;;
-            esac
-    fi
+    esac
     echo "${OUT}"
+
 }
+
+
 
 # Show Frontend Version
 rig_frontend() {
-    local frontend
     local gitrepo
     local path
     local version
     local OUT
-    frontend="${RIG_FRONTEND}"
     gitrepo="${RIG_FRONTEND_REPO}"
     path="${RIG_FRONTEND_PATH}"
-    version="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
+    version="$(frontend_local_version "${path}" "${RIGFETCH_LOG}")"
     OUT="${version}"
     echo " ${OUT}"
 }
@@ -497,8 +498,8 @@ print_benchy() {
     echo -e "${BC1}${BC2}      3O°'°OD     ___________ ${RS} ${TC}${TB}mem\t${RS}$(rig_mem)${TC}${TB} sd${RS}$(rig_fs)"
     echo -e "${BC1}${BC2}      3D   3D   _/DKLIPPER3D/ ${RS} ${TC}${TB}loadavg\t${RS}$(rig_load)"
     echo -e "${BC1}${BC2} o__3D3D___3D__/3D3D3D(O)3D/  ${RS} ${TC}${TB}pkgs\t${RS}$(rig_pkgs)"
-    echo -e "${BC1}${BC2} \3DOCTOPRINT3D3DRIGGED3D3/   ${RS} ${TC}${TB}klipper\t${RS}  $(rig_git_fetch "${RIG_KLIPPER_PATH}")"
-    echo -e "${BC1}${BC2}  \3DWC23D3DFLUIDDD3D3D3D/    ${RS} ${TC}${TB}moonraker${RS}  $(rig_git_fetch "${RIG_MOONRAKER_PATH}")"
+    echo -e "${BC1}${BC2} \3DOCTOPRINT3D3DRIGGED3D3/   ${RS} ${TC}${TB}klipper\t${RS}  $(rig_git_fetch "${RIG_KLIPPER_REPO}")"
+    echo -e "${BC1}${BC2}  \3DWC23D3DFLUIDDD3D3D3D/    ${RS} ${TC}${TB}moonraker${RS}  $(rig_git_fetch "${RIG_MOONRAKER_REPO}")"
     echo -e "${BC1}${BC2}   \3D3D3D3DMAINSAIL3D3D/     ${RS} ${TC}${TB}${RIG_FRONTEND}\t${RS} $(rig_frontend)\v"
 }
 
