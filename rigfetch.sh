@@ -531,7 +531,7 @@ print_benchy
 # 'CHECK_FOR_UPDATES' auto color error
 if [ "$(grep -c 'CHECK_FOR_UPDATES' "${RIGFETCH_LOG}")" -gt "0" ]
     then
-        fail_msg "OOPS, something went wrong! Check '${RIGFETCH_LOG}'!"
+        warn_msg "You need to set CHECK_FOR_UPDATES=Y to use 'auto' Color!"
 fi
 
 # Last apt Update more than 12h ago
