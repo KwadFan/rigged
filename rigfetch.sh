@@ -477,8 +477,18 @@ rig_frontend() {
     gitrepo="${RIG_FRONTEND_REPO}"
     path="${RIG_FRONTEND_PATH}"
     frontend="${RIG_FRONTEND}"
-    OUT="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
+    # Testing out as array
+    case $CHECK_FOR_UPDATES in
+            Y | y | YES | yes)
+                OUT="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
+                OUT+=" (${fg_red}$(check_remote_version "${gitrepo}" "${logpath}")${reset})"
+            ;;
+            *)
+                OUT="$(frontend_local_version "${frontend}" "${path}" "${RIGFETCH_LOG}")"
+            ;;
+    esac
     echo " ${OUT}"
+
 }
 
 ### Print output
