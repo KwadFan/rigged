@@ -289,7 +289,7 @@ arg_parse() {
         do
             case "$@" in
                 -h | --help)
-                    echo -e "Syntax: "$0" [Options]\n"
+                    echo -e "Syntax: ""$0"" [Options]\n"
                     echo -e "Available Options are:\n"
                     echo -e "-l or \--showlog\tShould be obvious :)"
                     echo -e "-d or \--deletelog\tDeletes rigfetch's log file"
@@ -339,7 +339,7 @@ arg_parse() {
                     ;;
                 *)
                     fail_msg "Syntax Error!"
-                    std_msg "Please try "$0" --help or -h\n"
+                    std_msg "Please try ""$0"" --help or -h\n"
                     exit 1
                     ;;
             esac
