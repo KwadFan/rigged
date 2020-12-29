@@ -336,6 +336,8 @@ arg_parse() {
                     ;;
                 -v | --version)
                     echo -e "$(check_local_version "$(locate_self)")"
+                    exit 0
+                    ;;
                 --debug)
                     set -x
                     RIG_DEBUG=YES
