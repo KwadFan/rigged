@@ -443,7 +443,6 @@ rig_git_fetch() {
     local logpath
     gitrepo="${1}"
     logpath="${RIGFETCH_LOG}"
-    OUT="$(check_local_version "${gitpath}" "${logpath}")"
     case "${gitrepo}" in
         *klipper*)
             gitpath="${RIG_KLIPPER_PATH}"
@@ -452,6 +451,7 @@ rig_git_fetch() {
             gitpath="${RIG_MOONRAKER_PATH}"
         ;;
     esac
+    OUT="$(check_local_version "${gitpath}" "${logpath}")"
     case $CHECK_FOR_UPDATES in
                 Y | y | YES | yes)
                     OUT+=" (${fg_red}$(check_remote_version "${gitrepo}" "${logpath}")${reset})"
