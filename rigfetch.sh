@@ -308,6 +308,7 @@ arg_parse() {
                 -b | --backup)
                     ok_msg "Copying rigfetch.conf to rigfetch.conf.bak"
                     cp --preserve=mode -f "${RIGFETCH_PATH}/config/rigfetch.conf" "${RIGFETCH_PATH}/config/rigfetch.conf.bak"
+                    exit 0
                     ;;
                 -d | --deletelog)
                     if [ -f "${RIGFETCH_LOG}" ]
