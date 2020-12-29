@@ -361,12 +361,6 @@ first_line() {
     echo "${OUTPUT}"
 }
 
-rig_uptime() {
-    local UP
-    UP="$(LC_ALL=C uptime -p | tr -d ',' | sed 's/.*up.//; s/.week./W /; s/.day./d /; s/.hour./h /; s/.minut.*/m/')"
-    echo "  ${UP}"
-}
-
 rig_host() {
     local product_name
     local product_version
@@ -386,6 +380,12 @@ rig_host() {
     echo "$product_name $product_version $product_model"
 }
 
+rig_uptime() {
+    local UP
+    UP="$(LC_ALL=C uptime -p | sed 's/.*up.//; s/.week./w/; s/.day./d/; s/.hour./h/; s/.minut.*/m/' | tr -d ",")"
+    echo "  ${UP}"
+}
+
 rig_mem() {
     local mem_avail
     mem_avail=$(LC_ALL=C free -m | grep Mem | awk '{print $2}')
@@ -402,7 +402,7 @@ rig_fs() {
 
 rig_load() {
     local load_avg
-    load_avg=$(LC_ALL=C uptime | rev | cut -d":" -f1 | rev | sed '-es/,/./'{1,2,3} | sed 's/ //1' )
+    load_avg=$(LC_ALL=C uptime | rev | cut -d":" -f1 | rev | sed 's/ //1' )
     echo "  ${load_avg}"
 }
 

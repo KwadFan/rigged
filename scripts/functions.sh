@@ -234,7 +234,7 @@ frontend_local_version(){
             fi
         ;;
         octoprint)
-        OUT="N/A"
+            OUT="N/A"
         ;;
     esac
     echo "${OUT}"
