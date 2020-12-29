@@ -447,10 +447,10 @@ rig_git_fetch() {
     gitrepo="${1}"
     logpath="${RIGFETCH_LOG}"
     case "${gitrepo}" in
-        *KLIPPER*)
+        *klipper*)
             gitpath="${RIG_KLIPPER_PATH}"
         ;;
-        *MOONRAKER*)
+        *moonraker*)
             gitpath="${RIG_MOONRAKER_PATH}"
         ;;
     esac
