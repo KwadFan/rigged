@@ -43,6 +43,10 @@ for simplicity make an link to script with:
     - for (unknowingly, sorry mate :) ) contributing some  code from his great "KIAUH" Suite
     - [https://github.com/th33xitus/kiauh](https://github.com/th33xitus/kiauh)
 
+- **cadriel**
+    - for [FluiddPI](https://github.com/cadriel/FluiddPI)
+    - and for [fluidd](https://github.com/cadriel/fluidd)
+
 - **Raymond Himle**
     - for [MainsailOS](https://github.com/raymondh2/MainsailOS)
 
