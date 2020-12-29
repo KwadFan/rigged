@@ -16,7 +16,6 @@ for raspian based distros like:
 
 ### TODO:
 
-- Get frontend version Check running.
 - Documentation
 - Installer Script
 - Credits
@@ -34,3 +33,28 @@ for simplicity make an link to script with:
 >Set path/to/rigfetch.sh according to your path, usually /home/pi/rigged/rigfetch.sh
 
 *This project is heavily under cunstruction, so, please be patient*
+
+
+---
+## Credits
+
+### Credits and a big Thank You to...
+- **th33xitus**
+    - for (unknowingly, sorry mate :) ) contributing some  code from his great "KIAUH" Suite
+    - [https://github.com/th33xitus/kiauh](https://github.com/th33xitus/kiauh)
+
+- **Raymond Himle**
+    - for [MainsailOS](https://github.com/raymondh2/MainsailOS)
+
+- **meteyou**
+    - [mainsail](https://github.com/meteyou/mainsail) Fronend for Klipper/Moonraker
+
+- **Arksine**
+    - for making all this possible the great:
+    - [Moonraker API](https://github.com/Arksine/moonraker)
+
+- **KevinOConnor**
+    - the reason why we can use all this stuff:
+    - [klipper](https://www.klipper3d.org)
+
+- and last but not least, all other contributors that helped to make all this possible!
