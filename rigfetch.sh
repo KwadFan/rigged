@@ -300,7 +300,8 @@ arg_parse() {
                     echo -e "-b or --backup\tWill do a backup of the rigfetch.conf"
                     echo -e "--debug\tRIPS OUT ALL OF IT'S CUTENESS!"
                     echo -e "\tand show you his naked Pants oO ( equal to set -x )\v"
-                    echo -e "-h or --help ... must I really?\v"
+                    echo -e "-h or --help\t ... must I really?\v"
+                    echo -e "-v or --version\tSelf explaining.\v"
                     echo -e "Without options it throws a benchy :)"
                     echo -e "Now you are on your own..."
                     exit 0
@@ -333,6 +334,8 @@ arg_parse() {
                     less "${RIGFETCH_LOG}"
                     exit 0
                     ;;
+                -v | --version)
+                    echo -e "$(check_local_version "$(locate_self)")"
                 --debug)
                     set -x
                     RIG_DEBUG=YES
