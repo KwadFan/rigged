@@ -173,9 +173,10 @@ check_remote_version() {
     gitrepo="${1}"
     logpath="${2}"
     if [ -n "${gitrepo}" ]
-        version="$(curl -s https://api.github.com/repos/"${gitrepo}"/tags | grep name | head -1 \
-        | awk -F":" '{sub(/,/, ""); gsub(/"/, ""); gsub(/ /, ""); print $2}')"
         then
+            # grep "v[0-9]" workaround for moonrakers v.08
+            version="$(curl -s https://api.github.com/repos/"${gitrepo}"/tags | grep "v[0-9]" | head -1 \
+            | awk -F":" '{sub(/,/, ""); gsub(/"/, ""); gsub(/ /, ""); print $2}')"
             if [ -n "${logpath}" ]
                 then
                     log_msg "’${gitrepo}’ Version: ${version}" "${logpath}"
