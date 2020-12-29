@@ -178,13 +178,13 @@ check_remote_version() {
         then
             if [ -n "${logpath}" ]
                 then
-                    log_msg "’${gitrepo}’ Version: ${version}"
+                    log_msg "’${gitrepo}’ Version: ${version}" "${logpath}"
             fi
             OUT="${version}"
         else
             if [ -n "${logpath}" ]
                 then
-                    log_msg "Warning! Repository ${gitrepo} doesnt exist!"
+                    log_msg "Warning! Repository ${gitrepo} doesnt exist!" "${logpath}"
             fi
             OUT="N/A"
     fi
