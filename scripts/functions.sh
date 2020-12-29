@@ -129,8 +129,8 @@ last_fetch() {
         then
             echo "$(($(date +%s)-$(stat -c %Y "${path}"/.git/FETCH_HEAD)))"
         else
-            #force fetch_git_latest
-            echo "3700"
+            # echo 24h ( 86400 ) if no file found / force fetch
+            echo "86400"
     fi
 }
 
