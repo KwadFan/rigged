@@ -411,29 +411,26 @@ rig_pkgs() {
     local OUT
     local updates_avail
     # To speed up, parse log for aviable updates
+    if [ -f "${RIGFETCH_LOG}" ]
+        then
+            updates_avail="$(grep "System Updates" "${RIGFETCH_LOG}" | awk '{print $1}')"
+        else
+            updates_avail="$(count_sys_updates "${RIGFETCH_LOG}")"
+    fi
+    OUT="$(dpkg -l | grep -c "^ii")"
     case $CHECK_FOR_UPDATES in
         Y | y | YES | yes)
-            if [ -f "${RIGFETCH_LOG}" ]
-                then
-                    updates_avail="$(grep "System Updates" "${RIGFETCH_LOG}" | awk '{print $1}')"
-                else
-                    updates_avail="$(count_sys_updates "${RIGFETCH_LOG}")"
-            fi
             case "${updates_avail}" in
                 *0*)
-                    OUT="$(dpkg -l | grep -c "^ii") (${fg_red}No Upgrades${reset})"
+                    OUT+=" (${fg_red}No Upgrades${reset})"
                 ;;
                 *)
-                    OUT="$(dpkg -l | grep -c "^ii") (${fg_red}${updates_avail} Upgradable${reset})"
+                    OUT+=" (${fg_red}${updates_avail} Upgradable${reset})"
                 ;;
             esac
-            echo -e "  ${OUT}"
-        ;;
-        *)
-            OUT="$(dpkg-query -f '.\n' -W | wc -l)"
-            echo -e "  ${OUT}"
         ;;
     esac
+    echo -e "  ${OUT}"
 }
 
 # Fetch Versions
@@ -446,6 +443,7 @@ rig_git_fetch() {
     local logpath
     gitrepo="${1}"
     logpath="${RIGFETCH_LOG}"
+    OUT="$(check_local_version "${gitpath}" "${logpath}")"
     case "${gitrepo}" in
         *klipper*)
             gitpath="${RIG_KLIPPER_PATH}"
@@ -456,10 +454,7 @@ rig_git_fetch() {
     esac
     case $CHECK_FOR_UPDATES in
                 Y | y | YES | yes)
-                    OUT="$(check_local_version "${gitpath}" "${logpath}") (${fg_red}$(check_remote_version "${gitrepo}" "${logpath}")${reset})"
-                    ;;
-                 *)
-                    OUT="$(check_local_version "${gitpath}" "${logpath}")"
+                    OUT+=" (${fg_red}$(check_remote_version "${gitrepo}" "${logpath}")${reset})"
                     ;;
     esac
     echo "${OUT}"
