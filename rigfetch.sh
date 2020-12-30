@@ -117,7 +117,7 @@ set_color() {
         auto)
             case $CHECK_FOR_UPDATES in
                 Y | y | YES | yes)
-                    if [ "$(count_sys_updates)" = "0" ]
+                    if [ "$(awk '{sub(/\(/, "",$2); print $2}' <<< $(rig_pkgs))" = "No" ]
                         then
                             case $AUTO_COLOR in
                                 black)
@@ -326,7 +326,7 @@ arg_parse() {
                         then
                             $EDITOR "${RIGFETCH_PATH}/config/rigfetch.conf"
                         else
-                            /usr/bin/nano "${RIGFETCH_PATH}/config/rigfetch.conf"
+                            /bin/nano "${RIGFETCH_PATH}/config/rigfetch.conf"
                     fi
                     exit 0
                     ;;
@@ -357,7 +357,7 @@ arg_parse() {
 
 first_line() {
     local OUTPUT
-    if [ -x "/usr/bin/hostname" ]
+    if [ -x "/bin/hostname" ]
         then
             OUTPUT="${TC}${TB}$(whoami)${ATC}@${reset}${TC}${TB}$(hostname -A)${reset}${TB} $(hostname -I)${reset}"
         else
