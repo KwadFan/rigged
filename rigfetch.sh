@@ -117,7 +117,7 @@ set_color() {
         auto)
             case $CHECK_FOR_UPDATES in
                 Y | y | YES | yes)
-                    if [ "$(awk '{sub(/\(/, "",$2); print $2}' <<< $(rig_pkgs))" = "No" ]
+                    if [ "$(awk '{sub(/\(/, "",$2); print $2}' <<< $(rig_pkgs))" != "No" ]
                         then
                             case $AUTO_COLOR in
                                 black)
@@ -507,7 +507,6 @@ print_benchy() {
     echo -e "${BC1}${BC2} \3DOCTOPRINT3D3DRIGGED3D3/   ${RS} ${TC}${TB}klipper\t${RS}  $(rig_git_fetch "${RIG_KLIPPER_REPO}")"
     echo -e "${BC1}${BC2}  \3DWC23D3DFLUIDDD3D3D3D/    ${RS} ${TC}${TB}moonraker${RS}  $(rig_git_fetch "${RIG_MOONRAKER_REPO}")"
     echo -e "${BC1}${BC2}   \3D3D3D3DMAINSAIL3D3D/     ${RS} ${TC}${TB}${RIG_FRONTEND}\t${RS} $(rig_frontend)\v"
-    return 0
 }
 
 ### Main
@@ -532,8 +531,6 @@ set_color
 
 # Print Benchy
 print_benchy
-
-
 
 ### Hints & Error Messages
 
