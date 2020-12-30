@@ -519,12 +519,12 @@ print_voron() {
     # Clear Screen
     tput clear
     # Print Stuff
-    echo -e "${BC1}${BC2}\v       rrrrr    rrrrr      ${RS}  $(first_line)"
+    echo -e "${BC1}${BC2}\v      rrrrr     rrrrr      ${RS}  $(first_line)"
     echo -e "${BC1}${BC2}     rV000r   10002        ${RS} ${TC}${TB}host\t${RS}$(rig_host)"
-    echo -e "${BC1}${BC2}    n0001   rIGG3d         ${RS} ${TC}${TB}uptime\t${RS}$(rig_uptime)"
-    echo -e "${BC1}${BC2}   moonr   aker01          ${RS} ${TC}${TB}mem\t${RS}$(rig_mem)${TC}${TB} sd${RS}$(rig_fs)"
-    echo -e "${BC1}${BC2}  rrrr    r000V    rrrrr   ${RS} ${TC}${TB}loadavg\t${RS}$(rig_load)"
-    echo -e "${BC1}${BC2}       rV000r    1000n     ${RS} ${TC}${TB}pkgs\t${RS}$(rig_pkgs)"
+    echo -e "${BC1}${BC2}   n0001    rIGG3d         ${RS} ${TC}${TB}uptime\t${RS}$(rig_uptime)"
+    echo -e "${BC1}${BC2}  moonr    aker01          ${RS} ${TC}${TB}mem\t${RS}$(rig_mem)${TC}${TB} sd${RS}$(rig_fs)"
+    echo -e "${BC1}${BC2}rrrr      r000V     rrrrr  ${RS} ${TC}${TB}loadavg\t${RS}$(rig_load)"
+    echo -e "${BC1}${BC2}       rV000r     1000n    ${RS} ${TC}${TB}pkgs\t${RS}$(rig_pkgs)"
     echo -e "${BC1}${BC2}      n0KLI1    pPERr      ${RS} ${TC}${TB}klipper\t${RS}  $(rig_git_fetch "${RIG_KLIPPER_REPO}")"
     echo -e "${BC1}${BC2}    r000Vr     V0001       ${RS} ${TC}${TB}moonraker${RS}  $(rig_git_fetch "${RIG_MOONRAKER_REPO}")"
     echo -e "${BC1}${BC2}   V0V0R      rV24r        ${RS} ${TC}${TB}${RIG_FRONTEND}\t${RS} $(rig_frontend)\v"
