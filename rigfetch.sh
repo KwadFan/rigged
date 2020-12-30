@@ -532,6 +532,9 @@ set_color
 # Print Benchy
 print_benchy
 
+# Initial tput init if added to .bashrc
+tput init
+
 ### Hints & Error Messages
 
 # 'CHECK_FOR_UPDATES' auto color error
