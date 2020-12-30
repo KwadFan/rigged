@@ -520,7 +520,7 @@ print_voron() {
     tput clear
     # Print Stuff
     echo -e "${BC1}${BC2}\v      rrrrr     rrrrr      ${RS}  $(first_line)"
-    echo -e "${BC1}${BC2}     rV000r   10002        ${RS} ${TC}${TB}host\t${RS}$(rig_host)"
+    echo -e "${BC1}${BC2}    rV000r    10002        ${RS} ${TC}${TB}host\t${RS}$(rig_host)"
     echo -e "${BC1}${BC2}   n0001    rIGG3d         ${RS} ${TC}${TB}uptime\t${RS}$(rig_uptime)"
     echo -e "${BC1}${BC2}  moonr    aker01          ${RS} ${TC}${TB}mem\t${RS}$(rig_mem)${TC}${TB} sd${RS}$(rig_fs)"
     echo -e "${BC1}${BC2}rrrr      r000V     rrrrr  ${RS} ${TC}${TB}loadavg\t${RS}$(rig_load)"
